@@ -21,7 +21,7 @@ func (s *Server) HandleClientHandler(w http.ResponseWriter, r *http.Request) {
 	protocol := r.Header.Get("Sec-WebSocket-Protocol")
 	if upgrade == "websocket" {
 		if protocol == chshare.ProtocolVersion {
-			s.handleWebsocket(w, r)
+			s.HandleWebsocket(w, r)
 			return
 		}
 		//print into server logs and silently fall-through
@@ -120,6 +120,14 @@ func (s *Server) HandleWebsocket(w http.ResponseWriter, req *http.Request) {
 				return
 			}
 		}
+
+		if s.config.AuthCallback != nil {
+			if !s.config.AuthCallback(r) {
+				failed(s.Errorf("access denied"))
+				return
+			}
+		}
+
 		//confirm reverse tunnels are allowed
 		if r.Reverse && !s.config.Reverse {
 			l.Debugf("Denied reverse port forwarding request, please enable --reverse")

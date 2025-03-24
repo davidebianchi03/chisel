@@ -21,17 +21,20 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
+type AuthCallbackFunc func(r *settings.Remote) bool
+
 // Config is the configuration for the chisel service
 type Config struct {
-	KeySeed   string
-	KeyFile   string
-	AuthFile  string
-	Auth      string
-	Proxy     string
-	Socks5    bool
-	Reverse   bool
-	KeepAlive time.Duration
-	TLS       TLSConfig
+	KeySeed      string
+	KeyFile      string
+	AuthFile     string
+	Auth         string
+	Proxy        string
+	Socks5       bool
+	Reverse      bool
+	KeepAlive    time.Duration
+	TLS          TLSConfig
+	AuthCallback AuthCallbackFunc
 }
 
 // Server respresent a chisel service
@@ -171,7 +174,7 @@ func (s *Server) StartContext(ctx context.Context, host, port string) error {
 	if err != nil {
 		return err
 	}
-	h := http.Handler(http.HandlerFunc(s.handleClientHandler))
+	h := http.Handler(http.HandlerFunc(s.HandleClientHandler))
 	if s.Debug {
 		o := requestlog.DefaultOptions
 		o.TrustProxy = true
