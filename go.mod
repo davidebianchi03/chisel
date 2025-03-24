@@ -1,4 +1,4 @@
-module github.com/jpillora/chisel
+module github.com/davidebianchi03/chisel
 
 go 1.21
 
