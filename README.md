@@ -1,6 +1,7 @@
 # Chisel
 
-[![GoDoc](https://godoc.org/github.com/davidebianchi03/chisel?status.svg)](https://godoc.org/github.com/davidebianchi03/chisel) [![CI](https://github.com/davidebianchi03/chisel/workflows/CI/badge.svg)](https://github.com/davidebianchi03/chisel/actions?workflow=CI)
+[![GoDoc](https://godoc.org/github.com/davidebianchi03/chisel?status.svg)](https://godoc.org/github.com/davidebianchi03/chisel) 
+[![CI](https://github.com/davidebianchi03/chisel/workflows/CI/badge.svg)](https://github.com/davidebianchi03/chisel/actions?workflow=CI)
 
 > [!WARNING]  
 > This is a fork of [jpillora/chisel](https://github.com/jpillora/chisel), the reason for this fork is to make chisel integrable into other projects.
