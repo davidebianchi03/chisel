@@ -15,7 +15,7 @@ import (
 )
 
 // handleClientHandler is the main http websocket handler for the chisel server
-func (s *Server) handleClientHandler(w http.ResponseWriter, r *http.Request) {
+func (s *Server) HandleClientHandler(w http.ResponseWriter, r *http.Request) {
 	//websockets upgrade AND has chisel prefix
 	upgrade := strings.ToLower(r.Header.Get("Upgrade"))
 	protocol := r.Header.Get("Sec-WebSocket-Protocol")
@@ -48,7 +48,7 @@ func (s *Server) handleClientHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // handleWebsocket is responsible for handling the websocket connection
-func (s *Server) handleWebsocket(w http.ResponseWriter, req *http.Request) {
+func (s *Server) HandleWebsocket(w http.ResponseWriter, req *http.Request) {
 	id := atomic.AddInt32(&s.sessCount, 1)
 	l := s.Fork("session#%d", id)
 	wsConn, err := upgrader.Upgrade(w, req, nil)
